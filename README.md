@@ -1,1 +1,1 @@
-# AI-homework-2
+# Artificial Intelligence I (CS7750) Homework 2

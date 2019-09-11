@@ -1,0 +1,29 @@
+HOMEWORK 2
+
+(Don't forget to create a github page.)
+
+2-D grid with 5x5 rooms.
+Agent's actions: Left, Right, Up, Down, Suck, and Do Nothing.
+
+Performance measure:
+* 4 point for each cleaned up room (changing the room from dirty to clean)
+* -1 point for Left
+* -1.1 point for Right
+* -1.2 point for Up
+* -0.3 point for Down
+* -0.2 point for Suck
+* 0 point for NoOp action
+Over a lifetime of 10 time steps. Higher performance points are better.
+
+Implement 4 algorithms:
+* uniform cost tree search, up to search tree depth 10
+* uniform cost graph search, up to search tree depth 10
+* depth-limited depth-first tree search, with depth limit 10
+* depth-limited depth-first graph search, with depth limit 10
+
+Potential programming languages for the homework:
+- C
+- Python
+- Ruby
+- Haskell
+- Crystal

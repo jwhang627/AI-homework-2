@@ -15,11 +15,29 @@ Performance measure:
 * 0 point for NoOp action
 Over a lifetime of 10 time steps. Higher performance points are better.
 
+Map (of Test Case #1):
+[.][ ][ ][.][.]
+[.][ ][ ][.][.]
+[ ][*][ ][ ][.]
+[.][ ][.][ ][ ]
+[.][ ][ ][.][.]
+
+class Action(Enum):
+	MOVE_LEFT = 1,
+	MOVE_RIGHT = 2,
+	MOVE_UP = 3,
+	MOVE_DOWN = 4,
+	SUCK = 5,
+	NOTHING = 6
+
 Implement 4 algorithms:
 * uniform cost tree search, up to search tree depth 10
 * uniform cost graph search, up to search tree depth 10
 * depth-limited depth-first tree search, with depth limit 10
 * depth-limited depth-first graph search, with depth limit 10
+
+tree search - all actions
+graph search - separate (directional movements and vacuum actions - suck or do nothing)
 
 Potential programming languages for the homework:
 - C
@@ -27,3 +45,10 @@ Potential programming languages for the homework:
 - Ruby
 - Haskell
 - Crystal
+
+Tree Search
+- You can go several paths many times
+Graph Search
+- You can go to one path one time.
+
+

@@ -3,6 +3,7 @@
 
 from enum import Enum
 from algorithms import *
+from time import *
 
 movements = Enum('movements', 'left right up down')
 actions = Enum('actions','suck nothing')
@@ -40,16 +41,18 @@ while True:
         break
     else:
         #print(options.get(int(select),'default'))
+        time = 0
         if val == 1:
-            uniform_cost_tree_search()
+            time = uniform_cost_tree_search()
         elif val == 2:
-            uniform_cost_graph_search()
+            time = uniform_cost_graph_search()
         elif val == 3:
-            depth_limited_depth_first_tree_search()
+            time = depth_limited_depth_first_tree_search()
         elif val == 4:
-            depth_limited_depth_first_graph_search()
+            time = depth_limited_depth_first_graph_search()
         else:
             quit()
+        print("--- " + str(time) + " seconds" + " ---")
         break
 
 

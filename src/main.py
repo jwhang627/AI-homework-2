@@ -5,8 +5,8 @@ from enum import Enum
 from algorithms import *
 from time import *
 
-movements = Enum('movements', 'left right up down')
-actions = Enum('actions','suck nothing')
+#movements = Enum('movements', 'left right up down')
+#actions = Enum('actions','suck nothing')
 
 # One of the example
 rooms = [

@@ -10,12 +10,26 @@ from time import *
 maze_map = []
 for i in range(5):
     maze_map.append([0]*5)
-dirt = [[1,1],[1,4],[1,5],[2,1],[2,4],[2,5],[3,5],[4,1],[4,3],[5,1],[5,4],[5,5]]
-for j in range(len(dirt)):
-    maze_map[dirt[j][0] - 1][dirt[j][1] - 1] = 1
-current_pos = [2,1]
+
+#dirt_1 = [[1,1],[1,4],[1,5],[2,1],[2,4],[2,5],[3,5],[4,1],[4,3],[5,1],[5,4],[5,5]]
+dirt_2 = [[1,1], [1,3], [2,4], [3,1], [3,4], [4,1], [4,4], [5,1]]
+#for j in range(len(dirt_1)):
+#    maze_map[dirt_1[j][0] - 1][dirt_1[j][1] - 1] = 1
+for j in range(len(dirt_2)):
+    maze_map[dirt_2[j][0] - 1][dirt_2[j][1] - 1] = 1
+
+pos_1 = [2,1]
+pos_2 = [2,2]
+
+#current_pos = pos_1
+current_pos = pos_2
+
 start_time = process_time()
 total_time = 0
+
+# function needed for the algorithms
+def next_move():
+    print("hello")
 
 # (private) 2D array printing
 def __printing_2Darray(m):
@@ -31,10 +45,11 @@ def __printing_2Darray(m):
 def uniform_cost_tree_search():
     print("uniform cost tree search")
     actions = [-1,-1.1,-1.2,-1.3,-0.2,0] # left, right, up, down, suck, nothing
-    
+    start_point = 0
+
     # 1 to 10 steps
     for step in range(10):
-        print("hello. I am still working on this.")
+        print("help me")
     
     __printing_2Darray(maze_map)
     return total_time
@@ -52,6 +67,7 @@ def uniform_cost_graph_search():
     score = 0
     current_pos_2 = current_pos
     record_map = []
+    nodes = 0
     for b in range(5):
         record_map.append([0]*5)
     maze_map[current_pos_2[0]][current_pos_2[1]] = 2
@@ -80,6 +96,7 @@ def uniform_cost_graph_search():
                         score = movement_points[idx]+action_points[1]
             future_score.append(score)
         if (max(future_score)!=float('-inf')):
+            nodes += 1
             move_code = future_score.index(max(future_score))
             all_score += future_score[move_code]
             current_pos_2[0] = current_pos_2[0]+movement_direction[move_code][0]
@@ -98,6 +115,10 @@ def uniform_cost_graph_search():
     maze_map[current_pos[1]][current_pos[0]] = 0
     __printing_2Darray(record_map)
     __printing_2Darray(maze_map)
+    print("All score:")
+    print("%.1f" % all_score)
+    print("Number of nodes:")
+    print(nodes)
     return total_time
 
 # depth limited depth first tree search

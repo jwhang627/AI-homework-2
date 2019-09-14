@@ -1,6 +1,7 @@
 # algorithms.py - written in Python 3.7.4 (the latest version as of September 11th 2019)
 # based on algorithms by Jinwen Tang
-# program written by Jay Whang
+# program written by Jay Whang and Christian Reed
+
 from array import *
 from enum import Enum
 from string import *
@@ -29,6 +30,12 @@ def __printing_2Darray(m):
 # uniform cost tree search
 def uniform_cost_tree_search():
     print("uniform cost tree search")
+    actions = [-1,-1.1,-1.2,-1.3,-0.2,0] # left, right, up, down, suck, nothing
+    
+    # 1 to 10 steps
+    for step in range(10):
+        print("hello. I am still working on this.")
+    
     __printing_2Darray(maze_map)
     return total_time
 
@@ -39,7 +46,7 @@ def uniform_cost_graph_search():
     #actions = Enum('actions','suck nothing') # suck and do nothing
     movement_points = [-1,-1.1,-1.2,-1.3]#left,right,up,down
     movement_direction = [[0,-1],[0,1],[-1,0],[1,0]]
-    action_points = [-0.2,0]#suck, no action
+    action_points = [-0.2,0]#suck, nothing
     clean_bonus = 4
     all_score = 0
     score = 0

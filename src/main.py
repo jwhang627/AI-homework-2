@@ -27,6 +27,15 @@ def selections():
     print("4. depth-limited depth-first graph search")
     print("5. quit")
 
+def set_some_stuffs():
+    print("which example would you like to use?")
+    print("(1)")
+    print("current position: [2,1]")
+    print("dirts: [[1,1],[1,4],[1,5],[2,1],[2,4],[2,5],[3,5],[4,1],[4,3],[5,1],[5,4],[5,5]]")
+    print("(numbers other than 1)")
+    print("current position: [2,2]")
+    print("dirts: [[1,1], [1,3], [2,4], [3,1], [3,4], [4,1], [4,4], [5,1]]")
+
 while True:
     selections()
     select = input("> ")
@@ -42,13 +51,62 @@ while True:
     else:
         #print(options.get(int(select),'default'))
         time = 0
+        """
+        set_some_stuffs()
+
+        sett = input("> ")
+        try:
+            vv = int(sett)
+        except ValueError:
+            print("That's not an integer!\nABORT!")
+            break
+        vv = int(sett)
+
+        setting(vv)
+        """
         if val == 1:
+            set_some_stuffs()
+            sett = input("> ")
+            try:
+                vv = int(sett)
+            except ValueError:
+                print("That's not an integer!\nABORT!")
+                break
+            vv = int(sett)
+            setting(vv)
             time = uniform_cost_tree_search()
         elif val == 2:
+            set_some_stuffs()
+            sett = input("> ")
+            try:
+                vv = int(sett)
+            except ValueError:
+                print("That's not an integer!\nABORT!")
+                break
+            vv = int(sett)
+            setting(vv)
             time = uniform_cost_graph_search()
         elif val == 3:
+            set_some_stuffs()
+            sett = input("> ")
+            try:
+                vv = int(sett)
+            except ValueError:
+                print("That's not an integer!\nABORT!")
+                break
+            vv = int(sett)
+            setting(vv)
             time = depth_limited_depth_first_tree_search()
         elif val == 4:
+            set_some_stuffs()
+            sett = input("> ")
+            try:
+                vv = int(sett)
+            except ValueError:
+                print("That's not an integer!\nABORT!")
+                break
+            vv = int(sett)
+            setting(vv)
             time = depth_limited_depth_first_graph_search()
         else:
             quit()

@@ -1,6 +1,6 @@
 # algorithms.py - written in Python 3.7.4 (the latest version as of September 11th 2019)
 # based on algorithms by Jinwen Tang
-# program written by Jay Whang and Christian Reed
+# program written by Jay Whang, Jinwen Tang, and Christian Reed
 
 from array import *
 from enum import Enum
@@ -19,14 +19,15 @@ clean_bonus = 4
 success_move = []
 
 #dirt_1 = [[1,1],[1,4],[1,5],[2,1],[2,4],[2,5],[3,5],[4,1],[4,3],[5,1],[5,4],[5,5]]
-dirt_2 = [[1,1], [1,3], [2,4], [3,1], [3,4], [4,1], [4,4], [5,1]]
+#dirt_2 = [[1,1], [1,3], [2,4], [3,1], [3,4], [4,1], [4,4], [5,1]]
 #for j in range(len(dirt_1)):
 #    maze_map[dirt_1[j][0] - 1][dirt_1[j][1] - 1] = 1
-for j in range(len(dirt_2)):
-    maze_map[dirt_2[j][0] - 1][dirt_2[j][1] - 1] = 1
+#for j in range(len(dirt_2)):
+#    maze_map[dirt_2[j][0] - 1][dirt_2[j][1] - 1] = 1
+dirt = []
 
 #current_pos = [2,1]
-current_pos = [2,2]
+current_pos = []
 
 start_time = process_time()
 total_time = 0
@@ -36,6 +37,21 @@ all_scores = []
 score = 0
 
 # function needed for the algorithms
+def setting(option):
+    global dirt
+    global current_pos
+    global maze_map
+
+    if option == 1:
+        dirt = [[1,1],[1,4],[1,5],[2,1],[2,4],[2,5],[3,5],[4,1],[4,3],[5,1],[5,4],[5,5]]
+        current_pos = [2,1]
+    else:
+        dirt = [[1,1], [1,3], [2,4], [3,1], [3,4], [4,1], [4,4], [5,1]]
+        current_pos = [2,2]
+
+    for i in range(len(dirt)):
+        maze_map[dirt[i][0]-1][dirt[i][1]-1] = 1
+
 def next_move(type_search,step, maze_map, record_map, coor, movement):
     global all_scores
     #all_score = 0
@@ -150,7 +166,7 @@ def uniform_cost_tree_search():
     print("Number of nodes:")
     print(nodes)
 
-    __printing_2Darray(maze_map)
+    #__printing_2Darray(maze_map)
     return total_time
 
 # uniform cost graph search
@@ -200,8 +216,8 @@ def uniform_cost_graph_search():
         if (max(future_score)!=float('-inf')):
             nodes += 1
             move_code = future_score.index(max(future_score))
-            print(move_code)
-            print(future_score[move_code])
+            #print(move_code)
+            #print(future_score[move_code])
             all_score += future_score[move_code]
             current_pos_2[0] = current_pos_2[0]+movement_direction[move_code][0]
             current_pos_2[1] = current_pos_2[1]+movement_direction[move_code][1]
@@ -234,24 +250,64 @@ def depth_limited_depth_first_tree_search():
     #clean_bonus = 4
     #all_score = []
     #score = 0
-    #success_move = []
     global all_scores
     record_map = []
     for a in range(5):
         record_map.append([0]*5)
-    
+    maze_map[current_pos[0]][current_pos[1]] = 2
     __printing_2Darray(maze_map)
     next_move(1,0,maze_map,record_map,current_pos,[])
     total_time = process_time() - start_time
+    idx = all_scores.index(all_scores[0])
+    path_array = success_move[idx]
+    record_map[current_pos[0]][current_pos[1]] = 2
+    for mark in range(10):
+        record_map[path_array[mark][0]][path_array[mark][1]] = 1
     print("The map will be: ")
-    print(maze_map)
-    print("All possible score will be: ")
-    print(all_scores)
+    __printing_2Darray(record_map)
+    #print("All possible score will be: ")
+    #print(all_scores)
     print("First score will be: ")
     print(all_scores[0])
-    idx = all_scores.index(all_scores[0])
+    #idx = all_scores.index(all_scores[0])
     print("Movements will be like: ")
-    print(success_move[idx])
+    print(path_array)
+    print("Movements in path order: ")
+    success_path = []
+    success_path.append([current_pos[0],current_pos[1],0])
+    
+    for i in range(10):
+        j = 0
+        while(j < 10):
+            if (success_path[i][0] == path_array[j][0]) and (success_path[i][1] + 1 == path_array[j][1]): # left
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] + 1 == path_array[j][0]) and (success_path[i][1] == path_array[j][1]): # down
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] == path_array[j][0]) and (success_path[i][1] - 1 == path_array[j][1]): # right
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] - 1 == path_array[j][0]) and (success_path[i][1] == path_array[j][1]): # up
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            else:
+                j += 1
+
+    print(success_path)
+    
     for each_score, each_iter in zip(all_scores, success_move):
         a = 1
     print("Total nodes: ")
@@ -269,15 +325,65 @@ def depth_limited_depth_first_graph_search():
     __printing_2Darray(maze_map)
     next_move(2,0,maze_map,record_map,current_pos,[])
     total_time = process_time() - start_time
+    """
     print("The map will be: ")
     print(maze_map)
-    print("All possible score will be: ")
-    print(all_scores)
+    #print("All possible score will be: ")
+    #print(all_scores)
     print("First score will be: ")
     print(all_scores[0])
     idx = all_scores.index(all_scores[0])
     print("Movements will be like: ")
     print(success_move[idx])
+    """
+    idx = all_scores.index(all_scores[0])
+    path_array = success_move[idx]
+    record_map[current_pos[0]][current_pos[1]] = 2
+    for mark in range(10):
+        record_map[path_array[mark][0]][path_array[mark][1]] = 1
+    print("The map will be: ")
+    __printing_2Darray(record_map)
+    #print("All possible score will be: ")
+    #print(all_scores)
+    print("First score will be: ")
+    print(all_scores[0])
+    #idx = all_scores.index(all_scores[0])
+    print("Movements will be like: ")
+    print(path_array)
+    #print("Movements in path order: ")
+    #success_path = []
+    #success_path.append([current_pos[0],current_pos[1],0])
+    """
+    for i in range(10):
+        j = 0
+        while(j < 10):
+            if (success_path[i][0] == path_array[j][0]) and (success_path[i][1] + 1 == path_array[j][1]): # left
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] + 1 == path_array[j][0]) and (success_path[i][1] == path_array[j][1]): # down
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] == path_array[j][0]) and (success_path[i][1] - 1 == path_array[j][1]): # right
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            elif (success_path[i][0] - 1 == path_array[j][0]) and (success_path[i][1] == path_array[j][1]): # up
+                if path_array[j] in success_path:
+                    j += 1
+                else:
+                    success_path.append(path_array[j])
+                    j = 10
+            else:
+                j += 1
+    """
     for each_score, each_iter in zip(all_scores, success_move):
         a = 1
     print("Total nodes: ")
